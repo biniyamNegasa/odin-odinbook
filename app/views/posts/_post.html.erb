@@ -5,4 +5,12 @@
     <div>
         <%= post.content %>
     </div>
+    <div>
+        <%= link_to "Comments (#{post.comments.count})", post %>
+        <% if post.likes.find_by(user: current_user) %>
+            <%= link_to "Unlike", post_likes_path(post), method: :delete, data: { turbo_method: :delete } %> <%= post.likes.count %>
+        <% else %>
+            <%= link_to "Like", post_likes_path(post), method: :post, data: { turbo_method: :post } %> <%= post.likes.count %>
+        <% end %>
+    </div>
 </div>
