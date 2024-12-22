@@ -1,4 +1,4 @@
-<%= form_with(model: [ @post, comment ]) do |form| %>   
+<%= form_with(model: [ @post, comment ], method: :post, url: post_comments_path(@post)) do |form| %>
   <% if comment.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(comment.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -12,11 +12,10 @@
   <% end %>
 
   <div>
-    <%= form.label :content, "Comment" %>
-    <%= form.text_field :content, autofocus: true, placeholder: "...", required: true %>
+    <%= form.text_field :content, placeholder: "Say something ...", required: true %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Add comment" %>
   </div>
 <% end %>

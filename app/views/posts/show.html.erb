@@ -9,7 +9,7 @@
 <% else %>
   <p>No comments yet. Be the first to comment!</p>
 <% end %>
-<%= link_to "New comment", new_post_comment_path(@post) %>
+<%= link_to "Add a comment", new_post_comment_path(@post) %>
 
 <div>
   <% if current_user == @post.user %>
