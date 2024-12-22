@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
   root "posts#index"
-  get "comments/new"
-  get "comments/edit"
-
   resources :posts do
     resources :comments, except: %i[ show, index ]
     resource :likes, only: %i[ create destroy ]
