@@ -1,0 +1,10 @@
+<div>
+  <div style="font-weight: bold;"><%= link_to user.username, user %></div>
+  <% if user != current_user %> | 
+    <% if current_user.following?(user) %>
+      <%= link_to "unfollow", unfollow_user_path(user), method: :delete, data: { turbo_method: :delete,  confirm: "Are you sure?", turbo_confirm: "Are you sure?" } %>
+    <% else %>
+      <%= link_to "follow", follow_user_path(user), method: :post, data: { turbo_method: :post } %>
+    <% end %>
+  <% end %>
+</div>

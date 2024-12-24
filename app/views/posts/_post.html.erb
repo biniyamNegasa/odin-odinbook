@@ -1,6 +1,6 @@
 <div id="<%= dom_id post %>">
     <div>
-        By <%= post.user.username %>
+        By <%= render "users/user", user: post.user %>
     </div>
     <div>
         <%= post.content %>

@@ -1,0 +1,16 @@
+<div>
+    <p>
+        <%= render "users/user", user: @user %>
+        <% if current_user == @user %>
+            <%= link_to "Edit your profile", edit_user_registration_path %>
+            <%= link_to "Delete your account", user_registration_path, method: :delete, data: { turbo_method: :delete,  confirm: "Are you sure?", turbo_confirm: "Are you sure?" } %>
+        <% end %>
+    </p>
+
+    <h3>Followings <%= @user.followees.count %> </h3>
+    <h3>Followers <%= @user.followers.count %> </h3>
+
+    <h3>Posts <%= @user.posts.count %></h3>
+    <h3>Comments <%= @user.comments.count %></h3>
+    <h3>Likes <%= @user.likes.count %></h3>
+</div>
