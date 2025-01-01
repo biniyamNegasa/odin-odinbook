@@ -1,10 +1,23 @@
-<div>
-  <div style="font-weight: bold;"><%= link_to user.username, user %></div>
-  <% if user != current_user %> | 
+<div class="flex items-center gap-2">
+  <%= link_to user.username,
+  user,
+  class: " font-bold hover:underline hover:text-blue-700" %>
+  <% if user != current_user %>
     <% if current_user.following?(user) %>
-      <%= link_to "unfollow", unfollow_user_path(user), method: :delete, data: { turbo_method: :delete,  confirm: "Are you sure?", turbo_confirm: "Are you sure?" } %>
+      <%= link_to unfollow_user_path(user), method: :delete, data: {
+        turbo_method: :delete,
+      } do %>
+        <%= inline_svg_tag "users/account-multiple-minus.svg",
+        class: "w-6 h-6 hover:text-red-900" %>
+      <% end %>
     <% else %>
-      <%= link_to "follow", follow_user_path(user), method: :post, data: { turbo_method: :post } %>
+      <%= link_to follow_user_path(user), method: :post, data: {
+        turbo_method: :post,
+      } do %>
+        <%= inline_svg_tag "users/account-multiple-plus.svg",
+        class: "w-6 h-6 hover:text-green-900" %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
+

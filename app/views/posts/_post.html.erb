@@ -1,16 +1,29 @@
 <div id="<%= dom_id post %>">
-    <div>
-        By <%= render "users/user", user: post.user %>
-    </div>
-    <div>
-        <%= post.content %>
-    </div>
-    <div>
-        <%= link_to "Comments (#{post.comments.count})", post %>
-        <% if post.likes.find_by(user: current_user) %>
-            <%= link_to "Unlike", post_likes_path(post), method: :delete, data: { turbo_method: :delete } %> <%= post.likes.count %>
-        <% else %>
-            <%= link_to "Like", post_likes_path(post), method: :post, data: { turbo_method: :post } %> <%= post.likes.count %>
+  <div class="pb-2">
+    <%= render "users/user", user: post.user %>
+  </div>
+  <div class="pb-2">
+    <%= post.content %>
+  </div>
+  <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 border-2 border-orange-300 rounded-lg p-2">
+      <% if post.likes.find_by(user: current_user) %>
+        <%= link_to post_likes_path(post), method: :delete, data: { turbo_method: :delete, } do %>
+          <%= inline_svg_tag "posts/heart.svg", class: "w-5 h-5 text-red-600 " %>
         <% end %>
+      <% else %>
+        <%= link_to post_likes_path(post), method: :post, data: { turbo_method: :post, } do %>
+          <%= inline_svg_tag "posts/heart.svg",
+          class: "w-5 h-5 text-slate-300 hover:text-red-600" %>
+        <% end %>
+      <% end %>
+      <%= post.likes.count %>
     </div>
+    <%= link_to post, class: "font-bold hover:underline hover:text-blue-700" do %>
+      <div class="flex items-center gap-2">
+        <%= inline_svg_tag "posts/chat.svg", class: "w-5 h-5 text-blue-500 " %>
+        <%= post.comments.count %>
+      </div>
+    <% end %>
+  </div>
 </div>

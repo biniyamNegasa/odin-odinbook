@@ -1,7 +1,7 @@
 <% content_for :title, "Posts" %>
 
-<%= link_to new_post_path do %>
-  <div class="text-blue-500 hover:text-blue-700 flex items-center gap-2">
+<%= button_to new_post_path, method: :get, class: "text-blue-500 hover:text-blue-700 hover:underline" do %>
+  <div class="flex items-center gap-2">
     <%= inline_svg_tag "posts/plus-box.svg", class: "w-10 h-10" %>
     <div class="text-xl font-bold">Post</div>
   </div>
@@ -13,11 +13,6 @@
   <% @posts.each do |post| %>
     <div class="border-2 border-orange-300 rounded-lg p-4 mb-2">
       <%= render post %>
-      <p>
-        <%= link_to "Show this post",
-        post,
-        class: "text-blue-500 font-bold hover:underline hover:text-blue-700" %>
-      </p>
     </div>
   <% end %>
 </div>
