@@ -1,6 +1,10 @@
 <div id="<%= dom_id post %>">
   <div class="pb-2">
     <%= render "users/user", user: post.user %>
+    <div class="text-gray-500">
+      <%= time_ago_in_words post.created_at %>
+      ago
+    </div>
   </div>
   <div class="pb-2">
     <%= post.content %>

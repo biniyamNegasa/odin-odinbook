@@ -1,21 +1,33 @@
 <%= render @post %>
-<h3>Comments</h3>
+<% if current_user == @post.user %>
+  <div class="flex gap-2">
+    <%= link_to "Edit this post",
+    edit_post_path(@post),
+    class: "font-bold hover:text-blue-700 hover:underline" %>
+    |
+    <%= link_to "Delete this post",
+    @post,
+    method: :delete,
+    data: {
+      turbo_method: :delete,
+      confirm: "Are you sure?",
+      turbo_confirm: "Are you sure?",
+    },
+    class: "font-bold hover:text-red-700 hover:underline" %>
+  </div>
+<% end %>
+<h3 class="text-xl font-bold text-orange-500">Comments</h3>
 <% if @post.comments.any? %>
   <% @post.comments.each do |comment| %>
-    <%= render "comments/comment", comment: comment %>
+    <div class="border-2 border-orange-200 rounded-lg p-4 mb-2">
+      <%= render "comments/comment", comment: comment %>
+    </div>
   <% end %>
 <% else %>
   <p>No comments yet. Be the first to comment!</p>
 <% end %>
-<%= link_to "Add a comment", new_post_comment_path(@post) %>
-
-<div>
-  <div>
-    <% if current_user == @post.user %>
-      <%= link_to "Edit this post", edit_post_path(@post) %> | 
-      <%= link_to "Delete this post", @post, method: :delete, data: { turbo_method: :delete,  confirm: "Are you sure?", turbo_confirm: "Are you sure?" } %>
-    <% end %>
-  </div>
-
-  <%= link_to "Back to posts", posts_path %>
-</div>
+<%= button_to "Add a comment",
+new_post_comment_path(@post),
+method: :get,
+class:
+  "text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>

@@ -1,8 +1,21 @@
 <p>
-    <%= comment.user.username %>:-
-    <%= comment.content %>
-    <% if current_user == comment.user %>
-        [ <%= link_to "Edit", edit_post_comment_path(comment.post, comment) %> |
-        <%= link_to "Delete", post_comment_path(comment.post, comment), method: :delete, data: { turbo_method: :delete } %> ]
-    <% end %>
+  <%= render "users/user", user: comment.user %>
+  <div class="text-gray-500">
+    <%= time_ago_in_words comment.created_at %>
+    ago
+  </div>
+  <%= comment.content %>
+  <% if current_user == comment.user %>
+    [
+    <%= link_to "Edit", edit_post_comment_path(comment.post, comment) %>
+    |
+    <%= link_to "Delete",
+    post_comment_path(comment.post, comment),
+    method: :delete,
+    data: {
+      turbo_method: :delete,
+    } %>
+    ]
+  <% end %>
 </p>
+
