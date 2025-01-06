@@ -22,7 +22,7 @@
     <%= link_to post, class: "font-bold hover:underline hover:text-blue-700" do %>
       <div class="flex items-center gap-2">
         <%= inline_svg_tag "posts/chat.svg", class: "w-5 h-5 text-blue-500 " %>
-        <%= post.comments.count %>
+        <%= post.comments.count unless post.comments.count.zero? %>
       </div>
     <% end %>
   </div>
