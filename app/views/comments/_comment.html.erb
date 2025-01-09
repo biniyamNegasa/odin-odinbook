@@ -4,18 +4,22 @@
     <%= time_ago_in_words comment.created_at %>
     ago
   </div>
-  <%= comment.content %>
-  <% if current_user == comment.user %>
-    [
-    <%= link_to "Edit", edit_post_comment_path(comment.post, comment) %>
-    |
-    <%= link_to "Delete",
-    post_comment_path(comment.post, comment),
-    method: :delete,
+  <div class="flex items-center justify-between">
+    <%= comment.content %>
+    <% if current_user == comment.user %>
+      <div class="flex items-center">
+        <%= link_to edit_post_comment_path(comment.post, comment) do %>
+          <%= inline_svg_tag "posts/pen.svg",
+          class: "w-5 h-5 text-blue-300 hover:text-blue-500" %>
+        <% end %>
+        <%= link_to post_comment_path(comment.post, comment), method: :delete,
     data: {
       turbo_method: :delete,
-    } %>
-    ]
-  <% end %>
+    } do %>
+          <%= inline_svg_tag "posts/delete.svg",
+          class: "w-5 h-5 text-red-300 hover:text-red-500" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </p>
-
