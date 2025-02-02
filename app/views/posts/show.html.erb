@@ -1,12 +1,8 @@
 <%= render @post %>
 <h3 class="text-xl font-bold text-orange-500">Comments</h3>
 <turbo-frame id="comments_list">
-  <% if @post.comments.any? %>
-    <% @post.comments.each do |comment| %>
-      <%= render "comments/comment", comment: comment %>
-    <% end %>
-  <% else %>
-    <p>No comments yet. Be the first to comment!</p>
+  <% @post.comments.each do |comment| %>
+    <%= render "comments/comment", comment: comment %>
   <% end %>
 </turbo-frame>
 

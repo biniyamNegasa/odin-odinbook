@@ -62,7 +62,7 @@
       <%= link_to post, data: { turbo_frame: "_top" }, class: "font-bold hover:underline hover:text-blue-700" do %>
         <div class="flex items-center gap-2">
           <%= inline_svg_tag "posts/chat.svg", class: "w-5 h-5 text-blue-500 " %>
-          <%= post.comments.count unless post.comments.count.zero? %>
+          <%= render "comment_count", post: post %>
         </div>
       <% end %>
     </div>
