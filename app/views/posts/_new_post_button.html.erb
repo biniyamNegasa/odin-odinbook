@@ -1,0 +1,8 @@
+<turbo-frame id="post_form">
+  <%= button_to new_post_path, method: :get, form: { data: { turbo_frame: "post_form" }},class: "text-blue-500 hover:text-blue-700 hover:underline" do %>
+    <div class="flex items-center gap-2">
+      <%= inline_svg_tag "posts/plus-box.svg", class: "w-10 h-10" %>
+      <div class="text-xl font-bold">Post</div>
+    </div>
+  <% end %>
+</turbo-frame>

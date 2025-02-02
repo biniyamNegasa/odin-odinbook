@@ -1,7 +1,8 @@
-<%= form_with(model: post) do |form| %>
+<%= form_with(model: post, local: true) do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <h2><%= pluralize(post.errors.count, "error") %>
+        prohibited this post from being saved:</h2>
 
       <ul>
         <% post.errors.each do |error| %>
@@ -12,11 +13,17 @@
   <% end %>
 
   <div>
-    <%= form.label :content, "Your thought" %>
-    <%= form.text_area :content, size: "30*100" , autofocus: true, placeholder: "...", required: true %>
+    <%= form.text_area :content,
+                   size: "30*100",
+                   autofocus: true,
+                   placeholder: "...",
+                   required: true,
+                   class: "border-2 border-gray-200 rounded-lg" %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Post",
+                class:
+                  "text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center" %>
   </div>
 <% end %>

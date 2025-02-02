@@ -1,11 +1,6 @@
 <% content_for :title, "New post" %>
 
-<h1>New post</h1>
-
-<%= render "form", post: @post %>
-
-<br>
-
-<div>
-  <%= link_to "Back to posts", posts_path %>
-</div>
+<turbo-frame id="post_form">
+  <h2 class="text-blue-500 font-bold text-xl">New post</h2>
+  <%= render "form", post: @post %>
+</turbo-frame>

@@ -26,6 +26,11 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        format.turbo_stream {
+          render turbo_stream: [ turbo_stream.prepend("posts_list", partial: "posts/post", locals: { post: @post }),
+          turbo_stream.replace("post_form", partial: "posts/new_post_button")
+          ]
+        }
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else

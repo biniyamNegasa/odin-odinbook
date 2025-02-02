@@ -1,18 +1,15 @@
 <% content_for :title, "Posts" %>
 
-<%= button_to new_post_path, method: :get, class: "text-blue-500 hover:text-blue-700 hover:underline" do %>
-  <div class="flex items-center gap-2">
-    <%= inline_svg_tag "posts/plus-box.svg", class: "w-10 h-10" %>
-    <div class="text-xl font-bold">Post</div>
-  </div>
-<% end %>
+<turbo-frame id="post_form">
+  <%= render "new_post_button" %>
+</turbo-frame>
 
 <h1 class="text-orange-500 font-bold text-3xl">Posts</h1>
 
-<div id="posts">
-  <% @posts.each do |post| %>
-    <div class="border-2 border-orange-300 rounded-lg p-4 mb-2">
+<turbo-frame id="posts_list">
+  <div id="posts">
+    <% @posts.each do |post| %>
       <%= render post %>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+</turbo-frame>
