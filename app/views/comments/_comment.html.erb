@@ -1,8 +1,5 @@
-<div
-  id="<%= dom_id comment %>"
-  class="border-2 border-orange-200 rounded-lg p-4 mb-2"
->
-  <p>
+<turbo-frame id="<%= dom_id comment %>">
+  <div class="border-2 border-orange-200 rounded-lg p-4 mb-2">
     <%= render "users/user", user: comment.user %>
     <div class="text-gray-500">
       <%= time_ago_in_words comment.created_at %>
@@ -12,7 +9,7 @@
       <%= comment.content %>
       <% if current_user == comment.user %>
         <div class="flex items-center">
-          <%= link_to edit_post_comment_path(comment.post, comment) do %>
+          <%= link_to edit_post_comment_path(comment.post, comment), form: { data: { turbo_frame: dom_id(comment) } } do %>
             <%= inline_svg_tag "posts/pen.svg",
             class: "w-5 h-5 text-blue-300 hover:text-blue-500" %>
           <% end %>
@@ -26,5 +23,5 @@
         </div>
       <% end %>
     </div>
-  </p>
-</div>
+  </div>
+</turbo-frame>

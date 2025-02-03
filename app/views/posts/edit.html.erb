@@ -1,12 +1,16 @@
-<% content_for :title, "Editing post" %>
+<% content_for :title, "Edit post" %>
 
-<h1>Editing post</h1>
+<div class="flex flex-col gap-4">
+  <h2 class="text-blue-500 font-bold text-xl">Edit post</h2>
 
-<%= render "form", post: @post %>
+  <%= render "form", post: @post %>
 
-<br>
-
-<div>
-  <%= link_to "Show this post", @post %> |
-  <%= link_to "Back to posts", posts_path %>
+  <div class="flex gap-2 items-center">
+    <%= link_to "Show this post",
+    @post,
+    class: "text-blue-500 hover:underline hover:text-blue-700 hover:font-bold" %>
+    <%= link_to "Back to posts",
+    posts_path,
+    class: "text-blue-500 hover:underline hover:text-blue-700 hover:font-bold" %>
+  </div>
 </div>
