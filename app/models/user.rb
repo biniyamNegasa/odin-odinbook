@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [ :github ]
 
   has_many :posts, dependent: :destroy
   has_many :comments, through: :posts
@@ -15,6 +15,15 @@ class User < ApplicationRecord
   has_many :followees, through: :followee_follows, source: :followee
 
   validates :username, presence: true, uniqueness: true, length: { minimum: 4, maximum: 27 }
+
+  def self.from_omniauth(auth)
+    user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
+    user.email = auth.info.email.presence || "user-#{auth.uid}@example.com" # Fallback email
+    user.username = auth.info.nickname.presence || "github_user_#{auth.uid}" # Fallback username
+    user.password ||= Devise.friendly_token[0, 20] # Avoid overriding existing passwords
+    user.save if user.new_record? # Only save new users
+    user
+  end
 
   def following?(user)
     followees.include?(user)
