@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     member do
       post :follow, to: "follows#create"
       delete :unfollow, to: "follows#destroy"
+      get :followees
+      get :followers
+      get :posts
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
