@@ -1,0 +1,14 @@
+<%= turbo_frame_tag dom_id(post) do %>
+  <div class="flex items-center gap-2 border-2 border-orange-300 rounded-lg p-2">
+    <% if post.likes.find_by(user: current_user) %>
+      <%= button_to post_likes_path(post), method: :delete, class: "flex justify-content items-center" do %>
+        <%= inline_svg_tag "posts/heart.svg", class: "w-5 h-5 text-red-600 " %>
+      <% end %>
+    <% else %>
+      <%= button_to post_likes_path(post), method: :post, class: "flex justify-content items-center" do %>
+        <%= inline_svg_tag "posts/heart.svg", class: "w-5 h-5 text-slate-300" %>
+      <% end %>
+    <% end %>
+    <%= post.likes.count %>
+  </div>
+<% end %>

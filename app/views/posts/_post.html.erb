@@ -1,5 +1,5 @@
-<div class="border-2 border-orange-300 rounded-lg p-4 mb-2">
-  <div id="<%= dom_id post %>">
+<div id="<%= dom_id post %>">
+  <div class="border-2 border-orange-300 rounded-lg p-4 mb-2">
     <div class="flex justify-between items-start">
       <div>
         <%= render "users/user", user: post.user %>
@@ -46,19 +46,7 @@
       <%= post.content %>
     </div>
     <div class="flex items-center gap-3">
-      <div class="flex items-center gap-2 border-2 border-orange-300 rounded-lg p-2">
-        <% if post.likes.find_by(user: current_user) %>
-          <%= button_to post_likes_path(post), method: :delete, class: "flex justify-content items-center" do %>
-            <%= inline_svg_tag "posts/heart.svg", class: "w-5 h-5 text-red-600 " %>
-          <% end %>
-        <% else %>
-          <%= button_to post_likes_path(post), method: :post, class: "flex justify-content items-center" do %>
-            <%= inline_svg_tag "posts/heart.svg",
-            class: "w-5 h-5 text-slate-300 hover:text-red-600" %>
-          <% end %>
-        <% end %>
-        <%= post.likes.count %>
-      </div>
+      <%= render partial: "likes/like", locals: { post: post } %>
       <%= link_to post, data: { turbo_frame: "_top" }, class: "font-bold hover:underline hover:text-blue-700" do %>
         <div class="flex items-center gap-2">
           <%= inline_svg_tag "posts/chat.svg", class: "w-5 h-5 text-blue-500 " %>
