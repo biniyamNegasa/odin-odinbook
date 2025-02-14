@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ show followees followers posts ]
 
   def index
-    @users = User.all
+    @users = User.where.not(id: current_user.followees.pluck(:followee_id)).where.not(id: current_user.id)
   end
 
   def show
