@@ -66,3 +66,7 @@ gem "omniauth-github", "~> 2.0"
 gem "omniauth", "~> 2.1"
 
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "letter_opener", "~> 1.10"
+
+gem "letter_opener_web", "~> 3.0"

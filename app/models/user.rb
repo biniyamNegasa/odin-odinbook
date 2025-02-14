@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true, length: { minimum: 4, maximum: 27 }
 
+  after_create_commit :send_welcome_email
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email.presence || "user-#{auth.uid}@example.com" # Fallback email
@@ -26,5 +28,11 @@ class User < ApplicationRecord
 
   def following?(user)
     followees.include?(user)
+  end
+
+  private
+
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_later
   end
 end
