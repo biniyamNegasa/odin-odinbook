@@ -17,12 +17,11 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, length: { minimum: 4, maximum: 27 }
 
   def self.from_omniauth(auth)
-    user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
-    user.email = auth.info.email.presence || "user-#{auth.uid}@example.com" # Fallback email
-    user.username = auth.info.nickname.presence || "github_user_#{auth.uid}" # Fallback username
-    user.password ||= Devise.friendly_token[0, 20] # Avoid overriding existing passwords
-    user.save if user.new_record? # Only save new users
-    user
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email.presence || "user-#{auth.uid}@example.com" # Fallback email
+      user.username = auth.info.nickname.presence || "github_user_#{auth.uid}" # Fallback username
+      user.password ||= Devise.friendly_token[0, 20] # Avoid overriding existing passwords
+    end
   end
 
   def following?(user)
