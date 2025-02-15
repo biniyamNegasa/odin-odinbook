@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [ :github ]
 
   has_many :posts, dependent: :destroy
-  has_many :comments, through: :posts
-  has_many :likes, through: :posts
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   has_many :follower_follows, class_name: "Follow", foreign_key: :followee_id
   has_many :followers, through: :follower_follows, source: :follower
