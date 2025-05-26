@@ -82,10 +82,4 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  pool: 5
-  host: <%= ENV['DB_HOST'] %>
-  database: <%= ENV['DB_NAME'] %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  port: <%= ENV['DB_PORT'] || 5432 %>
-  sslmode: require
+  url: <%= ENV["DATABASE_URL"] %>
