@@ -83,3 +83,4 @@ production:
   adapter: postgresql
   encoding: unicode
   url: <%= ENV["DATABASE_URL"] %>
+  prepared_statements: false
