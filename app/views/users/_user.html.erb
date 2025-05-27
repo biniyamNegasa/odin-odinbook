@@ -7,16 +7,12 @@
   class: " font-bold hover:underline hover:text-blue-700" %>
   <% if user != current_user %>
     <% if current_user.following?(user) %>
-      <%= link_to unfollow_user_path(user), method: :delete, data: {
-        turbo_method: :delete,
-      } do %>
+      <%= button_to unfollow_user_path(user), method: :delete do %>
         <%= inline_svg_tag "users/account-multiple-minus.svg",
         class: "w-6 h-6 hover:text-red-900" %>
       <% end %>
     <% else %>
-      <%= link_to follow_user_path(user), method: :post, data: {
-        turbo_method: :post,
-      } do %>
+      <%= button_to follow_user_path(user), method: :post do %>
         <%= inline_svg_tag "users/account-multiple-plus.svg",
         class: "w-6 h-6 hover:text-green-900" %>
       <% end %>
