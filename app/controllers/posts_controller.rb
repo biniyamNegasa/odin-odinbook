@@ -24,13 +24,16 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
 
+    @posts = Post.where(user_id: [ current_user.id ] + current_user.followees.pluck(:followee_id)).order(created_at: :desc)
+
     respond_to do |format|
       if @post.save
-        format.turbo_stream {
-          render turbo_stream: [ turbo_stream.prepend("posts_list", partial: "posts/post", locals: { post: @post }),
-          turbo_stream.replace("post_form", partial: "posts/new_post_button")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace("posts", partial: "posts/posts", locals: { posts: @posts }), # re-renders the full post list
+            turbo_stream.replace("post_form", partial: "posts/new_post_button")
           ]
-        }
+        end
         format.html { redirect_to @post, notice: "Post was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }

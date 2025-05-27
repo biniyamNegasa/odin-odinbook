@@ -1,0 +1,9 @@
+<div id="posts">
+  <% if posts.empty? %>
+    <p class="text-center text-gray-500">No posts yet. Post something! or Follow another user.</p>
+  <% else %>
+    <% posts.each do |post| %>
+      <%= render post %>
+    <% end %>
+  <% end %>
+</div>
